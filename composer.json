@@ -1,0 +1,34 @@
+{
+    "name": "EvertonMacena/web-service---busque-costura",
+    "description":"Projeto da disciplina de fundamento de programação para internet",
+    "authors": [
+        {
+            "name": "Everton Macena",
+            "email": "evertommp@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "rain/raintpl":"3.0.0",
+        "monolog/monolog": "^1.17"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=4.8 < 6.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Fpin\\": "fpin\\classes\\src"
+        }
+    },
+    "config": {
+        "process-timeout" : 0
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public",
+        "test": "phpunit"
+    }
+
+}
