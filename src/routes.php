@@ -6,6 +6,7 @@ use Slim\Http\Response;
 use \Fpin\Page;
 use \Fpin\Models\User;
 use \Fpin\Models\Candidato;
+use \Fpin\Image\Cloudinary;
 
 // Routes
 /*
@@ -17,6 +18,71 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 */
+$app->get('/', function (Request $request, Response $response, array $args) {
+    $page = new Page(["header"=>false, "footer"=>false], "/templates/public/");
+
+    $page->setTpl("index", ["errorRegister"=>User::getErroRegister(),
+'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['cpf'=>'', 'email'=>'']]);
+
+});
+
+$app->post("/users/create", function($request, $response, $args){
+
+     $_SESSION['registerValues'] = $_POST;
+
+
+    if(!isset($_POST['email']) || $_POST['email'] == ''){
+        User::setErroRegister("Preencha o email corretamente !");
+        header("Location: /");
+        exit;
+    }
+
+    if(!isset($_POST['senha']) || $_POST['senha'] == ''){
+        User::setErroRegister("Preencha a senha corretamente !");
+        header("Location: /");
+        exit;
+    }
+
+    if(!isset($_POST['cpf']) || $_POST['cpf'] == ''){
+        User::setErroRegister("Preencha o CPF corretamente !");
+        header("Location: /");
+        exit;
+    }
+
+    if(User::checkLoginExist($_POST['email']) === true){
+        User::setErroRegister("Email já é usado por um outro usuario");
+        header("Location: /");
+        exit;
+    }
+
+    if(User::checkCpfExist($_POST['cpf']) === true){
+        User::setErroRegister("CPF já cadastrado no sistema");
+        header("Location: /");
+        exit;
+    }
+
+    $user = new User();
+
+    $_POST["admin"] = 0;
+
+    $user->setData($_POST);
+
+    $user->save();
+
+     User::login($_POST['email'], $_POST['senha']);
+
+    header("Location: /home");
+
+    exit;
+});
+
+$app->post('/login', function(){
+    User::login($_POST["email"], $_POST["password"]);
+
+    header ("Location: /home");
+    exit;
+});
+
 $app->get('/admin', function (Request $request, Response $response, array $args) {
     User::verify_login();
 
@@ -224,12 +290,38 @@ $app->get('/admin/candidatos/create', function(){
     $user = User::getFromSession();
 
     $page = new Page(["data"=>["user"=> $user->getValues()]]);
-    $page->setTpl("candidatos-create");
+    $page->setTpl("candidatos-create", ["tipo"=>Candidato::getAllTipo(),
+                                        "partido"=>Candidato::getAllPartido(),
+                                        "localidade"=>Candidato::getAllLocalidade()]);
 });
 
 $app->post("/admin/candidatos/create", function($request, $response, $args){
 
     User::verify_login();
+
+    if (isset($_FILES['newfile'])&&$_FILES['newfile']['name']!=="") {
+            $ext = explode('.', $_FILES['newfile']['name']);
+            $ext = end($ext);
+
+            var_dump($ext);
+            exit;
+
+            $new_name = "cad_".date("Y-m-d/H:m:s");
+
+            $dirTemp = $_SERVER["DOCUMENT_ROOT"].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."candidatos".DIRECTORY_SEPARATOR.$new_name.".".$ext;
+
+            move_uploaded_file($_FILES['newfile']['tmp_name'], $dirTemp);
+
+             \Cloudinary :: config ( array (
+                                        "cloud_name" => Cloudinary::CLOUD_NAME ,
+                                        "api_key" => Cloudinary::API_KEY ,
+                                        "api_secret" => Cloudinary::API_SECRET
+            ));
+            $response = \Cloudinary\Uploader::upload($dirTemp, $options = array ("folder" => "icons/", "public_id" => $new_name));
+            unlink($dirTemp);
+            $url = $response['url'];
+            $_POST['img'] = $url;
+        }
 
     $candidato = new Candidato();
 

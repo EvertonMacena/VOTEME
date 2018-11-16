@@ -21,7 +21,7 @@
             <div class="box-header">
               <a href="/admin/users/create" class="btn btn-success">Cadastrar Usuário</a>
               <div class="box-tools">
-                  <form action="/admin/users/<?php echo htmlspecialchars( $type, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                  <form action="/admin/users">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="search" class="form-control pull-right" placeholder="Search" value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                     <div class="input-group-btn">

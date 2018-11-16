@@ -10,6 +10,7 @@ class User extends Model{
 
     const SESSION = "User";
     const SECRET = "bkcstrkeyapp";
+    const ERROR_REGISTER = "UserErrorRegister";
 
     public static function getFromSession(){
 
@@ -21,6 +22,29 @@ class User extends Model{
 
         }
         return $user;
+    }
+
+    public static function checkLogin($inadmin  = true){
+        if (
+            !isset($_SESSION[User::SESSION]) ||
+            !$_SESSION[User::SESSION] ||
+            !(int)$_SESSION[User::SESSION]["id"] >0
+        ){
+            //Ususario nao estar logado
+            return false;
+
+        } else {
+            // Usuario estar logado
+            if($inadmin === true && (bool)$_SESSION[User::SESSION]["admin"] === true){
+                //Usuario é admin
+                return true;
+
+            } else if ($inadmin === false) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public static function login($login, $password){
@@ -57,14 +81,34 @@ class User extends Model{
     }
 
     public static function verify_login($inadmin  = true){
-        if (!isset($_SESSION[User::SESSION]) ||
-            !$_SESSION[User::SESSION] ||
-            !(int)$_SESSION[User::SESSION]["id"] >0 ||
-            (bool)$_SESSION[User::SESSION]["admin"] !== $inadmin){
+        if (!User::checkLogin($inadmin)){
 
-            header("Location: /admin/login");
-            exit;
+            if($inadmin){
+                header("Location: /admin/login");
+                exit;
+            } else {
+                header("Location: /login");
+                exit;
+            }
         }
+    }
+
+    public static function checkLoginExist($login){
+       $sql = new Sql();
+
+       $results = $sql->select("SELECT * FROM tb_user WHERE email = :deslogin", [
+        ':deslogin'=>$login]);
+
+       return (count($results)>0);
+    }
+
+    public static function checkCpfExist($cpf){
+       $sql = new Sql();
+
+       $results = $sql->select("SELECT * FROM tb_user WHERE cpf = :cpf", [
+        ':cpf'=>$cpf]);
+
+       return (count($results)>0);
     }
 
     public function save(){
@@ -185,6 +229,22 @@ class User extends Model{
         $sql = new Sql();
 
         $sql->query("UPDATE tb_user SET despassword = :password WHERE id = :iduser", array(":password"=>$password, ":iduser"=>$this->getid()));
+    }
+
+    public static function setErroRegister($msg){
+        $_SESSION[User::ERROR_REGISTER] = $msg;
+    }
+
+    public static function getErroRegister (){
+        $msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+        User::clearErroRegister();
+
+        return $msg;
+    }
+
+    public static function clearErroRegister(){
+        $_SESSION[User::ERROR_REGISTER] = NULL;
     }
 
 

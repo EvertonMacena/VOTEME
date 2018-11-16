@@ -1,0 +1,57 @@
+@font-face { font-family: Anson; src: url('Anson-Regular.otf'); } 
+
+body{
+    background-color:#0096fa;
+        
+}
+ #h-000 {
+    -border-style:solid;
+    width:-webkit-fill-available;
+    float:center;
+    display:inline-block;
+    text-align:center;
+
+}
+
+
+ #h-002 {
+    width:30%;
+    height: 500px;
+}
+
+h1{
+    font-family: "Anson", sans-serif;
+    font-size:180px;
+    color:white;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+
+}
+h3{
+    font-size: 44px;
+    margin: -20px 0px 50px 5px ;
+    color:white;
+
+
+}
+
+p{
+    font-size: 40px;
+    color:white;
+    padding: 40px;
+    height: 60px;
+
+}
+
+#container {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}

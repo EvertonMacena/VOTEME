@@ -196,7 +196,12 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="/admin/places"><i class="fa fa-globe"></i>Localidades</a></li>
+            <li class="active"><a href="/admin/places"><i class="fa fa-globe"></i>Localidades</a>
+            </li>
+            <li class="active"><a href="/admin/tipos"><i class="fa fa-tags"></i>Tipos de candidatura</a>
+            </li>
+            <li class="active"><a href="/admin/partidos"><i class="fa fa-group"></i>Partidos</a>
+            </li>
           </ul>
         </li>
       </ul>
