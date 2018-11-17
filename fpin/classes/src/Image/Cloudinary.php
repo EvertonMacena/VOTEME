@@ -5,7 +5,7 @@ namespace Fpin\Image;
 class Cloudinary {
 
     const CLOUD_NAME = "dknfjrsyq";
-    const API_KEY = 7166665385234651;
+    const API_KEY = 166665385234651;
     const API_SECRET = "LtLa0mdIc_0wxdBazlxkrwObXWQ";
     const CLOUDINARY_URL="CLOUDINARY_URL=cloudinary://166665385234651:LtLa0mdIc_0wxdBazlxkrwObXWQ@dknfjrsyq";
 

@@ -6,6 +6,7 @@ use Slim\Http\Response;
 use \Fpin\Page;
 use \Fpin\Models\User;
 use \Fpin\Models\Candidato;
+use \Fpin\Models\Proposta;
 use \Fpin\Image\Cloudinary;
 
 // Routes
@@ -141,7 +142,8 @@ $app->get('/admin/users', function(){
     $user = User::getFromSession();
     $page = new Page(["data"=>["user"=> $user->getValues()]]);
 
-    $page->setTpl("users",["user"=>$pagination['data']]);
+    $page->setTpl("users",["user"=>$pagination['data'],
+                            "search"=>$search]);
 });
 
 $app->get('/admin/users/create', function(){
@@ -281,7 +283,8 @@ $app->get('/admin/candidatos', function(){
     $user = User::getFromSession();
     $page = new Page(["data"=>["user"=> $user->getValues()]]);
 
-    $page->setTpl("candidatos",["candidatos"=>$pagination['data']]);
+    $page->setTpl("candidatos",["candidatos"=>$pagination['data'],
+                                "search"=>$search]);
 });
 
 $app->get('/admin/candidatos/create', function(){
@@ -299,14 +302,11 @@ $app->post("/admin/candidatos/create", function($request, $response, $args){
 
     User::verify_login();
 
-    if (isset($_FILES['newfile'])&&$_FILES['newfile']['name']!=="") {
+    if ($_FILES['newfile']['name']!=="") {
             $ext = explode('.', $_FILES['newfile']['name']);
             $ext = end($ext);
 
-            var_dump($ext);
-            exit;
-
-            $new_name = "cad_".date("Y-m-d/H:m:s");
+            $new_name = "cad_".date("YmdHms");
 
             $dirTemp = $_SERVER["DOCUMENT_ROOT"].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."candidatos".DIRECTORY_SEPARATOR.$new_name.".".$ext;
 
@@ -346,9 +346,15 @@ $app->get("/admin/candidatos/{idcandidato}/update", function($request, $response
 
     $page = new Page(["data"=>["user"=> $user->getValues()]]);
 
-    $page->setTpl("candidatos-update", ["candidato"=>$candidato->getValues()]);
+    $page->setTpl("candidatos-update", ["candidato"=>$candidato->getValues(),
+                                        "tipo"=>Candidato::getAllTipo(),
+                                        "partido"=>Candidato::getAllPartido(),
+                                        "localidade"=>Candidato::getAllLocalidade()]);
 
 });
+
+
+//UPDATE POST
 
 $app->get("/admin/candidatos/{idcandidato}/delete", function($request, $response, $args){
 
@@ -363,6 +369,110 @@ $app->get("/admin/candidatos/{idcandidato}/delete", function($request, $response
     header("Location: /admin/candidatos");
 
     exit;
+});
+
+$app->get("/admin/candidatos/{idcandidato}/propostas", function($request, $response, $args){
+
+    User::verify_login();
+
+    $user = User::getFromSession();
+
+    $candidato = new Candidato();
+
+    $candidato->get((int)$args['idcandidato']);
+
+    $page = new Page(["data"=>["user"=> $user->getValues()]]);
+
+    $page->setTpl("propostas", ["candidato"=>$candidato->getValues(),
+                                "tipos"=>Proposta::getAllTipo(),
+                                        "propostas"=>$candidato->getPropostas()]);
+
+});
+
+$app->get("/admin/candidatos/{idcandidato}/propostas/create", function($request, $response, $args){
+
+    User::verify_login();
+
+    $user = User::getFromSession();
+
+    $candidato = new Candidato();
+
+    $candidato->get((int)$args['idcandidato']);
+
+    $page = new Page(["data"=>["user"=> $user->getValues()]]);
+
+    $page->setTpl("propostas-create", ["candidato"=>$candidato->getValues(),
+                                        "tipo"=>Proposta::getAllTipo()]);
+
+});
+
+$app->post("/admin/candidatos/{idcandidato}/propostas/create", function($request, $response, $args){
+
+    User::verify_login();
+
+    $proposta = new Proposta();
+
+    $proposta->setData($_POST);
+
+    $proposta->save();
+
+    header("Location: /admin/candidatos/".(int)$args['idcandidato']."/propostas");
+
+    exit;
+});
+
+$app->get("/admin/propostas/{idproposta}/update", function($request, $response, $args){
+
+    User::verify_login();
+
+    $user = User::getFromSession();
+
+    $proposta = new Proposta();
+
+    $proposta->get((int)$args['idproposta']);
+
+    $candidato = new Candidato();
+
+    $candidato->get((int)$proposta->getidcandidato());
+
+    $page = new Page(["data"=>["user"=> $user->getValues()]]);
+
+    $page->setTpl("propostas-update", ["proposta"=>$proposta->getValues(),
+                                        "tipo"=>Proposta::getAllTipo(),
+                                        "candidato"=>$candidato->getValues()]);
+});
+
+$app->post("/admin/propostas/{idproposta}/update", function($request, $response, $args){
+
+    User::verify_login();
+
+    $proposta = new Proposta();
+
+    $proposta->get((int)$args['idproposta']);
+
+    $proposta->setData($_POST);
+
+    $proposta->update();
+
+    header("Location: /admin/candidatos/".$proposta->getidcandidato()."/propostas");
+
+    exit;
+});
+
+$app->get("/admin/propostas/{idproposta}/delete", function($request, $response, $args){
+
+    User::verify_login();
+
+    $proposta = new Proposta();
+
+    $proposta->get((int)$args['idproposta']);
+
+    $proposta->delete();
+
+    header("Location: /admin/candidatos");
+
+    exit;
+
 });
 
 

@@ -2,6 +2,9 @@
 
 namespace Fpin\DB;
 
+use \Fpin\Models\User;
+use \Fpin\Models\Candidato;
+
 class Sql {
 
 	const HOSTNAME = "127.0.0.1";
@@ -62,6 +65,7 @@ class Sql {
 		$stmt->execute();
 
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
 
 	}
 

@@ -19,7 +19,7 @@
   		<div class="box box-primary">
 
             <div class="box-header">
-              <a href="/admin/candidatos/create" class="btn btn-success">Cadastrar Usuário</a>
+              <a href="/admin/candidatos/create" class="btn btn-success">Cadastrar candidato</a>
               <div class="box-tools">
                   <form action="/admin/candidatos">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -36,7 +36,8 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th style="width: 10px">Numero</th>
+                    <th style="width: 10px">#</th>
+                    <th>Numero</th>
                     <th>Nome</th>
                     <th>Partido</th>
                     <th style="width: 80px">Localidade</th>
@@ -44,15 +45,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php $counter1=-1;  if( isset($candidado) && ( is_array($candidado) || $candidado instanceof Traversable ) && sizeof($candidado) ) foreach( $candidado as $key1 => $value1 ){ $counter1++; ?>
+                <?php $counter1=-1;  if( isset($candidatos) && ( is_array($candidatos) || $candidatos instanceof Traversable ) && sizeof($candidatos) ) foreach( $candidatos as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
                     <td><?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["numero"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["partido"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["localidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/candidados/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/propostas" class="btn btn-default btn-xs"><i class="fa fa-newspaper-o"></i> Propostas</a>
-                      <a href="/admin/candidados/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/update" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/candidatos/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/propostas" class="btn btn-default btn-xs"><i class="fa fa-newspaper-o"></i> Propostas</a>
+                      <a href="/admin/candidatos/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/update" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar</a>
                       <a href="/admin/candidatos/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                     </td>
                   </tr>

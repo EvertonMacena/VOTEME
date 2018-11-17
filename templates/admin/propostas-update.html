@@ -1,0 +1,57 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Proposta para {$candidato.nome}
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="/admin/candidatos">Candidados</a></li>
+    <li class="active"><a href="/admin/candidatos/{$candidato.id}/propostas">Propostas</a></li>
+    <li class="active"><a href="#">Editar</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+  	<div class="col-md-12">
+  		<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Editar Proposta</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" action="/admin/propostas/{$proposta.id}/update" method="post">
+          <div class="box-body">
+            <input type="hidden" id="idcandidato" name="idcandidato" value="{$candidato.id}">
+            <div class="form-group">
+              <label for="idtipo">Área</label>
+              <select class="form-control form-control-sm" name="idtipo" id = "idtipo">
+                <option value="{$proposta.idtipo}">{$proposta.tipo}</option>
+                {loop="$tipo"}
+                <option value="{$value.id}">{$value.descricao}</option>
+                {/loop}
+
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="senha">Descrição da proposta</label>
+              <textarea class="form-control" rows="5" id="descricao" name="descricao">{$proposta.descricao}</textarea>
+            </div>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+  	</div>
+  </div>
+
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

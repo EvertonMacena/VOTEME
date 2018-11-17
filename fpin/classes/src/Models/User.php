@@ -258,7 +258,7 @@ class User extends Model{
             a.id, a.email, a.cpf, a.admin
             FROM tb_user a
             ORDER BY a.id
-            LIMIT $start, $itensPerPage");
+            LIMIT $start, $itensPerPage", [], "User");
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
 

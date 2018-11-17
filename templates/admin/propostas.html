@@ -1,0 +1,82 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Propostas candidado {$candidato.nome}
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active"><a href="/admin/candidados">Candidatos</a></li>
+    <li class="active"><a href="#">Propostas</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+  	<div class="col-md-12">
+  		<div class="box box-primary">
+
+            <div class="box-header">
+              <a href="/admin/candidatos/{$candidato.id}/propostas/create" class="btn btn-success">Cadastrar proposta</a>
+            </div>
+
+            <div class="box-body no-padding">
+                {loop="$tipos"}
+
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">{$value.descricao}</h3>
+                  </div>
+                  {$tipo = $value.descricao}
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                     <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Descrição</th>
+                          <th style="width: 240px">&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {loop="$propostas"}
+                        {if="$value.tipo==$tipo"}
+                        <tr>
+                          <td>{$value.id}</td>
+                          <td>{$value.descricao}</td>
+                          <td>
+                            <a href="/admin/propostas/{$value.id}/update" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                            <a href="/admin/propostas/{$value.id}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                          </td>
+                        </tr>
+                        {/if}
+                      {/loop}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.box-body -->
+                  <!-- box-footer -->
+                </div>
+
+                {/loop}
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                {loop="$pages"}
+                <li><a href="{$value.href}">{$value.text}</a></li>
+                {/loop}
+              </ul>
+            </div>
+          </div>
+  	</div>
+  </div>
+
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

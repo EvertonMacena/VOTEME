@@ -19,7 +19,7 @@
   		<div class="box box-primary">
 
             <div class="box-header">
-              <a href="/admin/candidatos/create" class="btn btn-success">Cadastrar Usuário</a>
+              <a href="/admin/candidatos/create" class="btn btn-success">Cadastrar candidato</a>
               <div class="box-tools">
                   <form action="/admin/candidatos">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -36,7 +36,8 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th style="width: 10px">Numero</th>
+                    <th style="width: 10px">#</th>
+                    <th>Numero</th>
                     <th>Nome</th>
                     <th>Partido</th>
                     <th style="width: 80px">Localidade</th>
@@ -44,15 +45,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                {loop="$candidado"}
+                {loop="$candidatos"}
                   <tr>
                     <td>{$value.id}</td>
+                    <td>{$value.numero}</td>
                     <td>{$value.nome}</td>
                     <td>{$value.partido}</td>
                     <td>{$value.localidade}</td>
                     <td>
-                      <a href="/admin/candidados/{$value.id}/propostas" class="btn btn-default btn-xs"><i class="fa fa-newspaper-o"></i> Propostas</a>
-                      <a href="/admin/candidados/{$value.id}/update" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/admin/candidatos/{$value.id}/propostas" class="btn btn-default btn-xs"><i class="fa fa-newspaper-o"></i> Propostas</a>
+                      <a href="/admin/candidatos/{$value.id}/update" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar</a>
                       <a href="/admin/candidatos/{$value.id}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                     </td>
                   </tr>

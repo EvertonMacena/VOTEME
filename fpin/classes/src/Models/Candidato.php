@@ -11,8 +11,9 @@ class Candidato extends Model{
     public function save(){
 
         $sql = new Sql();
-        $results = $sql->select("CALL sp_candidato_save(:id, :idlocalidade, :nome, :idtipo, :partido, :img)", array(
+        $results = $sql->select("CALL sp_candidato_save(:id, :numero, :idlocalidade, :nome, :idtipo, :partido, :img)", array(
             ":id"=>$this->getid(),
+            ":numero"=>$this->getnumero(),
             ":idlocalidade"=>$this->getidlocalidade(),
             ":nome"=>utf8_decode($this->getnome()),
             ":idtipo"=>$this->getidtipo(),
@@ -27,9 +28,28 @@ class Candidato extends Model{
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT * FROM tb_cadidato WHERE id = :idcadidato", array(":idcadidato"=>$id));
+        $results = $sql->select("SELECT a.id, a.numero, a.idlocalidade, a.nome, a.idtipo, a.photo, a.partido AS idpartido, b.descricao AS tipo, c.estado AS localidade, d.sigla AS partido
+                        FROM tb_cadidato a
+                        INNER JOIN tb_tipo b ON a.idtipo = b.id
+                        INNER JOIN tb_localidade c ON a.idlocalidade = c.id
+                        INNER JOIN tb_partido d ON a.partido = d.id
+                        WHERE a.id = :idcadidato", array(":idcadidato"=>$id));
 
         $this->setData($results[0]);
+
+    }
+
+    public function getPropostas(){
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT a.id, a.descricao, a.idtipo, b.descricao AS tipo
+                                FROM tb_proposta a
+                                INNER JOIN tb_tipo_prop b ON a.idtipo = b .id
+                                WHERE a.idcandidato = :idcadidato
+                                ORDER BY tipo", array(":idcadidato"=>$this->getid()));
+
+        return $results;
 
     }
 
@@ -96,8 +116,10 @@ class Candidato extends Model{
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS
-            a.id, a.nome
+            a.id, a.numero, a.nome, b.estado AS localidade, c.sigla AS partido
             FROM tb_cadidato a
+            INNER JOIN tb_localidade b ON a.idlocalidade = b.id
+            INNER JOIN tb_partido c ON a.partido = c.id
             ORDER BY a.id
             LIMIT $start, $itensPerPage");
 
