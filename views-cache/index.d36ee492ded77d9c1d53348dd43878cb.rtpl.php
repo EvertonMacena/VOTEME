@@ -33,7 +33,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+            <span class="info-box-icon bg-red"><i class="fa fa-check-square-o"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Votos</span>
@@ -50,7 +50,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-child"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Usuarios</span>
@@ -83,7 +83,7 @@
           <!-- MAP & BOX PANE -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Visitors Report (Analytics)</h3>
+              <h3 class="box-title">Mapa de votos</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -93,11 +93,88 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body text-center">
-              <div class="row">
-                <div class="col-md-12">
-                <div id="embed-api-auth-container"></div>
-                <div id="chart-container"></div>
-                <div id="view-selector-container"></div>
+              <div id="container">
+                <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+                <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+                <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
+
+    <script>
+
+
+// Prepare demo data
+// Data is joined to map using value of 'hc-key' property by default.
+// See API docs for 'joinBy' for more info on linking data and map.
+var data = [
+    ['br-sp', 0],
+    ['br-ma', 1],
+    ['br-pa', 2],
+    ['br-sc', 3],
+    ['br-ba', 4],
+    ['br-ap', 5],
+    ['br-ms', 6],
+    ['br-mg', 7],
+    ['br-go', 8],
+    ['br-rs', 9],
+    ['br-to', 10],
+    ['br-pi', 11],
+    ['br-al', 12],
+    ['br-pb', 13],
+    ['br-ce', 14],
+    ['br-se', 15],
+    ['br-rr', 16],
+    ['br-pe', 17],
+    ['br-pr', 18],
+    ['br-es', 19],
+    ['br-rj', 20],
+    ['br-rn', 21],
+    ['br-am', 22],
+    ['br-mt', 23],
+    ['br-df', 24],
+    ['br-ac', 25],
+    ['br-ro', 46]
+];
+
+// Create the chart
+Highcharts.mapChart('container', {
+    chart: {
+        map: 'countries/br/br-all'
+    },
+
+    title: {
+        text: 'Mapa de calor'
+    },
+
+    subtitle: {
+        text: 'Fonte: <a href="http://code.highcharts.com/mapdata/countries/br/br-all.js">Brazil</a>'
+    },
+
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 1
+    },
+
+    series: [{
+        data: data,
+        name: 'Votos por região',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }]
+});</script>
+    </div>
+
                 <!-- /.col
                 <div class="col-md-3 col-sm-4 ">
                   <div class="panel-group ">
@@ -130,7 +207,7 @@
 
                 <!-- Alterar o link para o link do projeto-->
                         <div class="col-md-6 text-right">
-                          <a href="https://analytics.google.com/analytics/web/?authuser=1#/report-home/a127088228w185918552p183013777" class="btn btn-primary" role="button" target="_blank">Mais estatisticas</a>
+                          <a href="https://analytics.google.com/analytics/web/?authuser=1#/report-home/a127088228w185918552p183013777" class="btn btn-primary" role="button" target="_blank">Ver Visitas</a>
                         </div>
                         <div class="col-md-6 text-left">
                           <a href="/admin/places" class="btn btn-primary" role="button">Ver geoestatisticas</a>
@@ -146,72 +223,4 @@
     </section>
     <!-- /.content -->
   </div>
-
-  <script>
-(function(w,d,s,g,js,fs){
-  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
-  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
-  js.src='https://apis.google.com/js/platform.js';
-  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
-}(window,document,'script'));
-</script>
-
-<script>
-
-gapi.analytics.ready(function() {
-
-  /**
-   * Authorize the user immediately if the user has already granted access.
-   * If no access has been created, render an authorize button inside the
-   * element with the ID "embed-api-auth-container".
-   */
-  gapi.analytics.auth.authorize({
-    container: 'embed-api-auth-container',
-    clientid: '584545529296-k3oltdf4e96ta7tpjsa6j5p8p5bfi32j.apps.googleusercontent.com'
-  });
-
-
-  /**
-   * Create a new ViewSelector instance to be rendered inside of an
-   * element with the id "view-selector-container".
-   */
-  var viewSelector = new gapi.analytics.ViewSelector({
-    container: 'view-selector-container'
-  });
-
-  // Render the view selector to the page.
-  viewSelector.execute();
-
-
-  /**
-   * Create a new DataChart instance with the given query parameters
-   * and Google chart options. It will be rendered inside an element
-   * with the id "chart-container".
-   */
-  var dataChart = new gapi.analytics.googleCharts.DataChart({
-    query: {
-      metrics: 'ga:sessions',
-      dimensions: 'ga:date',
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday'
-    },
-    chart: {
-      container: 'chart-container',
-      type: 'LINE',
-      options: {
-        width: '100%'
-      }
-    }
-  });
-
-
-  /**
-   * Render the dataChart on the page whenever a new view is selected.
-   */
-  viewSelector.on('change', function(ids) {
-    dataChart.set({query: {ids: ids}}).execute();
-  });
-
-});
-</script>
   <!-- /.content-wrapper -->
