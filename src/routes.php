@@ -84,6 +84,16 @@ $app->post('/login', function(){
     exit;
 });
 
+$app->get('/home', function (Request $request, Response $response, array $args) {
+    User::verify_login(false);
+
+    $user = User::getFromSession();
+    $page = new Page(["footer"=>false, "data"=>["user"=> $user->getValues()]], "/templates/public/");
+
+    $page->setTpl("home");
+
+});
+
 $app->get('/admin', function (Request $request, Response $response, array $args) {
     User::verify_login();
 
