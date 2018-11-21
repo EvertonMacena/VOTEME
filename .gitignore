@@ -1,3 +1,4 @@
 /vendor/
 /logs/*
+/views-cache/*
 !/logs/README.md

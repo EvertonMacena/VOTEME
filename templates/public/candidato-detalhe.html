@@ -1,0 +1,68 @@
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+    <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+    <body class="profile-page">
+
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                       <div class="profile">
+                            <div class="avatar">
+                                <img src="{$candidato.photo}" width="300" height="300" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                            </div>
+                            <div class="name">
+                                <h3 class="title">{$candidato.nome}</h3>
+                                <h6>{$candidato.numero}</h6>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description text-center">
+                    <p>Candidato a {$candidato.tipo} em {$candidato.localidade}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile-tabs">
+                          <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                            {loop="$tipo"}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#{$value.descricao}" role="tab" data-toggle="tab">
+                                  <i class="material-icons">camera</i>
+                                  {$value.descricao}
+                                </a>
+                            </li>
+                            {/loop}
+                          </ul>
+                        </div>
+                </div>
+            </div>
+
+          <div class="tab-content tab-space">
+             {loop="$tipo"}
+             {$valor = $value.descricao}
+             <div class="tab-pane active text-center gallery" id="{$valor}">
+             {loop="$propostas"}
+             {if="$value.tipo==$valor"}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                      {$value.descricao}
+
+                    </div>
+                </div>
+            {/if}
+            {/loop}
+            </div>
+            {/loop}
+          </div>
+
+
+            </div>
+        </div>
+    </div>

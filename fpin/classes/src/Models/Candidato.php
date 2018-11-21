@@ -39,6 +39,22 @@ class Candidato extends Model{
 
     }
 
+    public static function getAllLocation($location){
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT a.id, a.numero, a.idlocalidade, a.nome, a.idtipo, a.photo, a.partido AS idpartido, b.descricao AS tipo, c.estado AS localidade, d.sigla AS partido
+                        FROM tb_cadidato a
+                        INNER JOIN tb_tipo b ON a.idtipo = b.id
+                        INNER JOIN tb_localidade c ON a.idlocalidade = c.id
+                        INNER JOIN tb_partido d ON a.partido = d.id
+                        WHERE c.estado = :localidade
+                        ORDER BY a.numero", array(":localidade"=>$location));
+
+        return $results;
+
+    }
+
     public function getPropostas(){
 
         $sql = new Sql();

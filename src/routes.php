@@ -85,12 +85,33 @@ $app->post('/login', function(){
 });
 
 $app->get('/home', function (Request $request, Response $response, array $args) {
-    User::verify_login(false);
 
+    /*
+    ----- USO DE GEOIP-----------
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+    var_dump($details);
+    */
+    User::verify_login(false);
+    $location = "Alagoas";
+    $candidatos = Candidato::getAllLocation($location);
     $user = User::getFromSession();
     $page = new Page(["footer"=>false, "data"=>["user"=> $user->getValues()]], "/templates/public/");
 
-    $page->setTpl("home");
+    $page->setTpl("home", ["candidatos"=>$candidatos]);
+
+});
+
+$app->get('/candidatos/{idcandidato}/detalhe', function (Request $request, Response $response, array $args) {
+
+    User::verify_login(false);
+    $user = User::getFromSession();
+    $candidato = new Candidato();
+    $candidato->get((int)$args["idcandidato"]);
+    $propostas = $candidato->getPropostas();
+    $page = new Page(["footer"=>false, "data"=>["user"=> $user->getValues()]], "/templates/public/");
+
+    $page->setTpl("candidato-detalhe", ["candidato"=>$candidato->getValues(), "propostas"=>$propostas, "tipo"=>Proposta::getAlltipo()]);
 
 });
 
@@ -483,6 +504,22 @@ $app->get("/admin/propostas/{idproposta}/delete", function($request, $response, 
 
     exit;
 
+});
+
+$app->get('/admin/votos', function(){
+    User::verify_login();
+
+    $user = User::getFromSession();
+
+    $localidades = Candidato::getAllLocalidade();
+    $tipos = Candidato::getAlltipo();
+
+    if (isset($_GET["idlocalidade"]) && isset($_GET["idtipo"])){
+        //Pegar dados de relatório
+    }
+
+    $page = new Page(["data"=>["user"=> $user->getValues()]]);
+    $page->setTpl("votos", ["tipo"=>$tipos, "localidades"=>$localidades]);
 });
 
 

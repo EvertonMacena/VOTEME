@@ -98,9 +98,9 @@
                     $("#btn-01").click(function(){
                         $("#h-000").hide(500);
                     });
-                        
-    
-                       
+
+
+
 
                     </script></p>
 
@@ -108,54 +108,9 @@
             </div>
           </div>
         </div>
-      <!-- Estatisticas -->
-          <div class="collapse" id="est" tabindex="-1" role="dialog" aria-hidden="true">
-          <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-          <a class="navbar-brand text-light" href="#" data-toggle="collapse" id="btn-02" data-target="#est" onclick="document.body.style.backgroundColor = '#0096fa';" >Vote.ME
-              
-              
-                      <script>
-                    $("#btn-02").click(function(){
-                        $("#h-000").show(500);
-                    });
-                      </script>
-              
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
 
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto">
-           <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Opções
-           </a>
-           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-           <a class="dropdown-item" href="#" data-toggle="collapse" data-target="#heatmap">Mapa de calor</a>
-           <a class="dropdown-item" href="#">Graficos</a>
-           <div class="dropdown-divider"></div>
-        
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Candidatos
-           </a>
-           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-           <a class="dropdown-item" href="#" data-toggle="collapse" data-target="#presidentes">Presidentes</a>
-           <a class="dropdown-item" href="#" data-toggle="collapse" data-target="#governadores">Governadores</a>
-           </div>
-           <a class="dropdown-item" href="#">Votar</a>
-           </div>
-           </li>
-           </ul>
-           <form class="form-inline my-2 my-lg-0">
-           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-           </form>
-          </div>
-          </nav>
- 
 
-            <div class="collapse" id="heatmap" tabindex="-1" role="dialog" aria-labelledby="heatmap" aria-hidden="true">                
+            <div class="collapse" id="heatmap" tabindex="-1" role="dialog" aria-labelledby="heatmap" aria-hidden="true">
             <div id="container">
                 <script src="/templates/public/heatmap.js">
                 </script>
@@ -163,13 +118,13 @@
             </div>
             </div>
             </div>
-      
+
       <div class="collapse" id="presidentes">
        <div class="collapse" id="candidatos" tabindex="-1" role="dialog" aria-labelledby="candidatos" aria-hidden="true">
         <div class="card" style="width: 18rem; height: 450px;">
           <img class="card-img-top" src="/img/hillary_blue-512.png" alt="Card image cap">
           <div class="card-body">
-            
+
             <h5 class="card-title" style="text-align: center;">Candidato A</h5>
               <a href="#" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#cA">Veja mais</a>
               <div class="modal fade" id="cA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-            
+
           </div>
         </div>
       </div>
@@ -264,18 +219,18 @@
                             </div>
                         </div>
                     </div>
-              
+
               </div>
           </div>
         </div>
       </div>
-      
+
       <div class="collapse" id="governadores">
        <div class="collapse" id="candidatos" tabindex="-1" role="dialog" aria-labelledby="candidatos" aria-hidden="true">
         <div class="card" style="width: 18rem; height: 450px;">
           <img class="card-img-top" src="/img/hillary_blue-512.png" alt="Card image cap">
           <div class="card-body">
-            
+
             <h5 class="card-title" style="text-align: center;">Candidato A</h5>
               <a href="#" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#g-cA">Veja mais</a>
               <div class="modal fade" id="g-cA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -320,12 +275,12 @@
                             </div>
                         </div>
                     </div>
-              
+
               </div>
           </div>
         </div>
-          
+
       </div>
-      
+
   </body>
 </html>
