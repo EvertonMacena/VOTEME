@@ -27,10 +27,116 @@
                 <div class="description text-center">
                     <p>Candidato a {$candidato.tipo} em {$candidato.localidade}</p>
                 </div>
-                <div class="row">
+                
+                
+                
+                <div class="container mt-3">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#home">Saude</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#menu1">Educação</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#menu2">Segurança</a>
+    </li>
+  </ul>
+
+                          {loop="$tipo"}
+             {$valor = $value.descricao}
+             <div id="teste">        
+             {loop="$propostas"}
+             {if="$value.tipo==$valor"}
+             <div class="row" id="teste2">
+             <div class="col-md-12 text-center" id="{$value.descricao}">
+             <!--{$value.descricao}-->
+
+             </div>
+             </div>
+             {/if}
+             {/loop}
+             {/loop}
+             
+              </div>        
+                    
+  <!-- Tab panes -->
+  <div class="tab-content border mb-3">
+    <div id="home" class="container tab-pane active"><br>
+      <h3></h3>
+                <p id="props1"></p>
+                <script>
+                $(function(){
+                var id = $("#teste .row div:first").attr("id");
+                document.getElementById("props1").innerHTML = id;
+                });
+                </script>
+    </div>
+    <div id="menu1" class="container tab-pane fade"><br>
+      <h3></h3>
+                <p id="props2"></p>
+                <script>
+                $(function(){
+                var id = $("#teste .row div:not(:first):not(:last)").attr("id");
+                document.getElementById("props2").innerHTML = id;
+                });
+                </script>
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+      <h3></h3>
+
+                <p id="props3"></p>
+                <script>
+                $(function(){
+                var id = $("#teste .row div:last").attr("id");
+                document.getElementById("props3").innerHTML = id;
+                });
+                </script>
+               
+    </div>
+  </div>
+</div>
+                
+                               
+                
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+    $('.nav-tabs a').on('shown.bs.tab', function(event){
+        var x = $(event.target).text();         // active tab
+        var y = $(event.relatedTarget).text();  // previous tab
+        $(".act span").text(x);
+        $(".prev span").text(y);
+    });
+});
+</script>
+                
+                
+                
+                
+                <!--<div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
                           <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
                             {loop="$tipo"}
                             <li class="nav-item">
                                 <a class="nav-link active" href="#{$value.descricao}" role="tab" data-toggle="tab">
@@ -62,7 +168,6 @@
             {/loop}
           </div>
 
-
             </div>
         </div>
-    </div>
+    </div> -->
