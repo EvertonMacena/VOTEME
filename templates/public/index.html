@@ -10,7 +10,7 @@
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
 <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta name="viewport" content="width=device-width, initial-scale=0.65">
     <link rel="stylesheet" href="style.css"  media="screen">
   </head>
   <body>
@@ -24,18 +24,18 @@
                         {$errorRegister}
                     </div>
                 {/if}
-                <p id="p_text"><a href="/users/create" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#exampleModal">Cadastrar</a></p>
+                <p id="p_text"><a href="/users/create" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#exampleModal" id="bt">Cadastrar</a></p>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <div class="modal-dialog" role="document" >
+                        <div class="modal-content" id="cad">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Cadastrar</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" >
                                 <form  role="form" action="/users/create" method="post">
                                     <div class="form-group">
                                         <label for="email">Email</label>
@@ -64,12 +64,12 @@
                         </div>
                     </div>
                 </div>
-                <p id="p_text"><a href="/login" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#log-in"> Entrar    </a></p>
+                <p id="p_text"><a href="/login" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#log-in" id="bt"> Entrar    </a></p>
                 <!-- Modal -->
                 <div class="modal fade" id="log-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
+                        <div class="modal-content" id="cad">
+                            <div class="modal-header" >
                                 <h5 class="modal-title" id="exampleModalLabel">Log-in</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -94,17 +94,10 @@
                         </div>
                     </div>
                 </div>
-                <p id="p_text"><button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" id="btn-01" data-target="#est" onclick="document.body.style.backgroundColor = 'white';" > Estatísticas</button>                   <script>
-                    $("#btn-01").click(function(){
-                        $("#h-000").hide(500);
-                    });
-
-
-
-
+                <p id="p_text"><button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" id="bt" data-target="#est" onclick="document.body.style.backgroundColor = 'white';"> Estatísticas</button>                   <script>
                     </script></p>
 
-                <p id="p_text"><a href="#" class="btn btn-primary btn-block btn-lg" > Votações Anteriores</a></p>
+                <p id="p_text"><a href="#" class="btn btn-primary btn-block btn-lg" id="bt" > Votações<br> Anteriores</a></p>
             </div>
           </div>
         </div>
