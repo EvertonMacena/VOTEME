@@ -17,6 +17,10 @@ body{
     height: 500px;
 }
 
+#logo{
+    margin: 0 auto;
+}
+
 h1{
     font-family: "Anson", sans-serif;
     font-size:180px;
@@ -34,13 +38,14 @@ h3{
 }
 #cad {
     
-    transform: translate(0%,30%) scale(1.2);
+    transform: translate(0%,30%) scale(1 , 1.2);
 }
 
 #bt {
     min-height: 100px;
     min-width:350px;
-    max-width: 100%;
+    max-width: 70%;
+    margin: 0 auto;
     font-size: 50px;
     position: relative;
 }
