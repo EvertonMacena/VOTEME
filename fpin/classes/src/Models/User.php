@@ -175,9 +175,9 @@ class User extends Model{
                 $result = base64_encode($iv.$code);
 
 
-                $link = "http://www.busquecostura.me/admin/forgot/reset?code=$result";
+                $link = "http://www.vote.me/forgot/reset?code=$result";
 
-                $mailer = new Mailer($data["email"], $data["name"], "REDEFINICAO DE SENHA - BUSQUE COSTURA", "recuperar_email_responsivo", array("name" => $data["name"], "link" => $link));
+                $mailer = new Mailer($data["email"], $data["name"], "REDEFINICAO DE SENHA - VOTEME", "recuperar_email_responsivo", array("name" => $data["name"], "link" => $link));
 
                 $mailer->send();
 

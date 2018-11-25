@@ -12,7 +12,7 @@
                     <div class="col-md-6 ml-auto mr-auto">
                        <div class="profile">
                             <div class="avatar">
-                                <img src="{$candidato.photo}" width="300" height="300" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                <img src="{$candidato.photo}" width="200" height="200" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                             </div>
                             <div class="name">
                                 <h3 class="title">{$candidato.nome}</h3>
@@ -26,10 +26,11 @@
                 </div>
                 <div class="description text-center">
                     <p>Candidato a {$candidato.tipo} em {$candidato.localidade}</p>
+                     <a class = "btn btn-primary btn-block btn-lg" style = "align-content: center;" href="/votar">Votar</a>
                 </div>
-                
-                
-                
+
+
+
                 <div class="container mt-3">
 
   <!-- Nav tabs -->
@@ -47,7 +48,7 @@
 
                           {loop="$tipo"}
              {$valor = $value.descricao}
-             <div id="teste">        
+             <div id="teste">
              {loop="$propostas"}
              {if="$value.tipo==$valor"}
              <div class="row" id="teste2">
@@ -59,9 +60,9 @@
              {/if}
              {/loop}
              {/loop}
-             
-              </div>        
-                    
+
+              </div>
+
   <!-- Tab panes -->
   <div class="tab-content border mb-3">
     <div id="home" class="container tab-pane active"><br>
@@ -94,13 +95,13 @@
                 document.getElementById("props3").innerHTML = id;
                 });
                 </script>
-               
+
     </div>
   </div>
 </div>
-                
-                               
-                
+
+
+
 
 <script>
 $(document).ready(function(){
@@ -115,28 +116,28 @@ $(document).ready(function(){
     });
 });
 </script>
-                
-                
-                
-                
+
+
+
+
                 <!--<div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
                           <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             {loop="$tipo"}
                             <li class="nav-item">
                                 <a class="nav-link active" href="#{$value.descricao}" role="tab" data-toggle="tab">

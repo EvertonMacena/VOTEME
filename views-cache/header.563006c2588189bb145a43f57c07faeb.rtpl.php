@@ -16,16 +16,8 @@
   <body>
     <!--<div class="collapse" id="est" tabindex="-1" role="dialog" aria-hidden="true"> -->
           <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-          <a class="navbar-brand text-light" href="#" data-toggle="collapse" id="btn-02" data-target="#est" onclick="document.body.style.backgroundColor = '#0096fa';" >Vote.ME
-
-
-                      <script>
-                    $("#btn-02").click(function(){
-                        $("#h-000").show(500);
-                    });
-                      </script>
-
-            </a>
+          <a class="navbar-brand text-light" href="#" data-toggle="collapse" id="btn-02" data-target="#est" onclick="document.body.style.backgroundColor = '#0096fa';" >Vote.ME</a>
+              
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
